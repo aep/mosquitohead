@@ -3,24 +3,28 @@ use <Round-Anything/polyround.scad>
 use <holes.scad>
 
 
+//use <shroud.scad>
+//translate([25,-40.5,72.5])
+//rotate([180+45,0,0])
+//shroud();
 
-// material cooling
-translate([34,-32,36])
-rotate([0,45+90,-90])
+
+
+color([0.4,0.4,0.4])
+translate([58,-57,30])
+rotate([0,-90, 45])
 import("50mmTurboFan.stl");
 
-
-
-
-
-
-
+color([0.4,0.4,0.4])
+translate([125,-79,138])
+rotate([-90,90,0])
+import ("RHD_BMG_Mosquito_Fan_Shroud.stl");
 
 
 // hotend cooling
-translate([0,-50,40])
-rotate([180+45,0,0])
-import("40mmFan.stl");
+//translate([0,-50,40])
+//rotate([180+45,0,0])
+//import("40mmFan.stl");
 
 
 // carriage (this pre-exists, dont modify)
@@ -28,13 +32,16 @@ color([0.99,0.99,0.99])
 carriage();
 
 
-// extruder, note that the LGX stl has the wrong hotend attached.
-
+// extruder
 translate([11.5,-51,83])
 color([0.2,0.99,0.99])
 rotate([0,180,0])
 import ("lgx.stl");
 
+// hotend
+translate([0,-47.5,9])
+color([0.2,0.99,0.99])
+import("mosquito.stl");
 
 
 
@@ -57,23 +64,27 @@ module bracket() {
         difference() {
 
             resolution = 2;
-            x  = 70;
+            x  = 55;
             y  = 30;
             radiiPoints2=[
                 [0,  -8+  2*y/3,    0],
                 [0,  -8  -y/3,      0],
 
-                [0,    -y,        4],
+                [0,    -y,          2],
 
-                [x,  -8  -y,        4],
-                [x,  4  -y,        4],
+                [x/2,    -y,        2],
+
+                [x-10, -28  -y,        2],
+                [x, -28  -y,        2],
+                [x,  4  -y,         2],
 
 
-                [x/2,  -14,            10],
+                [35,  -14,          10],
 
-                [x/2,   -8+  y/3,            4],
+                [35,   -8+  y/3,    4],
             ];
             polyRoundExtrude(radiiPoints2,8,0,2, resolution);
+            //polyline(radiiPoints2);
 
 
             translate([25,-18,3])
@@ -82,17 +93,20 @@ module bracket() {
             translate([14,0,3])
             m4hole();
 
-            translate([62,-29,3])
+            translate([50,-52,4])
+            rotate([0,180,0])
             m4hole();
 
-            translate([4.5,-25.5,3])
+
+            translate([4.5,-25.5,4])
+            rotate([0,180,0])
             m4hole();
         }
     }
 
 
     module backplate_hole() {
-        translate([0,0,4])
+        translate([0,0,3])
             rotate([0,180,0])
             m4hole();
     }
